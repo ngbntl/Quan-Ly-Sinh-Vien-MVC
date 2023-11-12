@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin sinh viên</title>
+    <style>
+      * {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .blue {
+        color: #3ac5c9;
+      }
+      .btn {
+        display: inline;
+        position: relative;
+      }
+
+      .but {
+        --color: #8a6ad4;
+
+        display: inline-block;
+        width: 8em;
+        height: 2.6em;
+        line-height: 2.5em;
+        margin: 20px;
+        position: relative;
+        left: 75%;
+        overflow: hidden;
+        border: 2px solid var(--color);
+        transition: color 0.5s;
+        z-index: 1;
+        font-size: 17px;
+        border-radius: 6px;
+        font-weight: 500;
+        color: var(--color);
+      }
+
+      .but:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        background: var(--color);
+        height: 150px;
+        width: 200px;
+        border-radius: 50%;
+      }
+
+      .but:hover {
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .but:before {
+        top: 100%;
+        left: 100%;
+        transition: all 0.7s;
+      }
+
+      .but:hover:before {
+        top: -30px;
+        left: -30px;
+      }
+
+      .but:active:before {
+        background: #3a0ca3;
+        transition: background 0s;
+      }
+      .header {
+        display: inline;
+      }
+      .header h2 {
+        text-align: center;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Danh sách sinh viên</h2>
+      <button class="but">
+        <a href="../Controller/C_Student.php?action=add">Thêm sinh viên</a>
+      </button>
+      <button class="but">
+        <a href="../Controller/C_Student.php?action=search">Tìm kiếm</a>
+      </button>
+    </div>
+
+    <div class="content">
+      <table>
+        <tr>
+          <th>Mssv</th>
+          <th>Họ và tên</th>
+          <th>Tuổi</th>
+          <th>Trường</th>
+          <th>Thao tác</th>
+        </tr>
+        <?php foreach ($studentList as $student): ?>
+        <tr>
+          <td><?php echo $student['id']; ?></td>
+          <td>
+            <a
+              class="blue"
+              href="../Controller/C_Student.php?stid=<?php echo $student['id']; ?>"
+            >
+              <?php echo $student['name']; ?>
+            </a>
+          </td>
+          <td><?php echo $student['age'] ?></td>
+          <td><?php echo $student['university'] ?></td>
+          <td>
+            <button
+              class="btn"
+              onclick="location.href='../Controller/C_Student.php?action=update&id=<?php echo $student['id']; ?>'"
+              class="btn-action"
+            >
+              Sửa
+            </button>
+
+            <button
+              class="btn"
+              onclick="location.href='../Controller/C_Student.php?action=delete&id=<?php echo $student['id']; ?>'"
+              class="btn-action"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+        <?php endforeach; ?>
+      </table>
+    </div>
+  </body>
+  <style>
+    .btn {
+      padding: 10px 20px;
+      border: unset;
+      border-radius: 15px;
+      color: #212121;
+      z-index: 1;
+      background: #e8e8e8;
+      position: relative;
+      font-weight: 100;
+      font-size: 17px;
+      -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+      box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+      transition: all 250ms;
+      overflow: hidden;
+      margin-right: 10px;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      border-radius: 15px;
+      background-color: #212121;
+      z-index: -1;
+      -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+      box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+      transition: all 250ms;
+    }
+
+    .btn:hover {
+      color: #e8e8e8;
+      cursor: pointer;
+    }
+
+    .btn:hover::before {
+      width: 100%;
+    }
+  </style>
+</html>
